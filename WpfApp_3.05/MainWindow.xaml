@@ -7,7 +7,68 @@
         xmlns:local="clr-namespace:WpfApp_3._05"
         mc:Ignorable="d"
         Title="MainWindow" Height="975" Width="1424">
+    <Window.Resources>
+        <Style TargetType="TextBox" x:Key="PlaceholderTextBoxStyle">
+            <Setter Property="Foreground" Value="Gray"/>
+            <Style.Triggers>
+                <Trigger Property="Text" Value="">
+                    <Setter Property="Tag" Value="New Product Name"/>
+                </Trigger>
+                <Trigger Property="IsFocused" Value="True">
+                    <Setter Property="Foreground" Value="Black"/>
+                    <Setter Property="Tag" Value="{Binding Text, RelativeSource={RelativeSource Self}}"/>
+                    <Setter Property="Text" Value=""/>
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+    </Window.Resources>
     <Grid>
-        
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <StackPanel Grid.Row="2" Orientation="Horizontal" Margin="10">
+            <TextBox x:Name="NewProductNameTextBox" Width="150" Margin="5" Text="New Product Name" Style="{StaticResource PlaceholderTextBoxStyle}"/>
+            <TextBox x:Name="NewProductTypeTextBox" Width="150" Margin="5" Text="New Product Type" Style="{StaticResource PlaceholderTextBoxStyle}"/>
+            <TextBox x:Name="NewProductSupplierIDTextBox" Width="50" Margin="5" Text="Supplier ID" Style="{StaticResource PlaceholderTextBoxStyle}"/>
+            <TextBox x:Name="NewProductQuantityTextBox" Width="50" Margin="5" Text="Quantity" Style="{StaticResource PlaceholderTextBoxStyle}"/>
+            <TextBox x:Name="NewProductCostPriceTextBox" Width="80" Margin="5" Text="Cost Price" Style="{StaticResource PlaceholderTextBoxStyle}"/>
+            <DatePicker x:Name="NewProductDeliveryDatePicker" Margin="5"/>
+            <Button Content="Add Product" Click="AddProduct_Click"
+                    Margin="5" Style="{DynamicResource MaterialDesignRaisedButton}"/>
+        </StackPanel>
+
+        <StackPanel Grid.Row="3" Orientation="Horizontal" Margin="10">
+            <TextBox x:Name="NewProductTypeTextBox2" Width="150" Margin="5" Text="New Product Type" Style="{StaticResource PlaceholderTextBoxStyle}"/>
+            <Button Content="Add Product Type" Click="AddProductType_Click"
+                    Margin="5" Style="{DynamicResource MaterialDesignRaisedButton}"/>
+        </StackPanel>
+
+        <StackPanel Grid.Row="4" Orientation="Horizontal" Margin="10">
+            <TextBox x:Name="NewSupplierNameTextBox" Width="150" Margin="5" Text="New Supplier Name" Style="{StaticResource PlaceholderTextBoxStyle}"/>
+            <TextBox x:Name="NewSupplierLocationTextBox" Width="150" Margin="5" Text="New Supplier Location" Style="{StaticResource PlaceholderTextBoxStyle}"/>
+            <Button Content="Add Supplier" Click="AddSupplier_Click"
+                    Margin="5" Style="{DynamicResource MaterialDesignRaisedButton}"/>
+        </StackPanel>
+
+        <StackPanel Grid.Row="0" Orientation="Horizontal" Margin="10">
+        </StackPanel>
+
+        <TextBox x:Name="SqlQueryTextBox" Grid.Row="1" Margin="10"
+                 TextWrapping="Wrap" AcceptsReturn="True"
+                 VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto"
+                 MinHeight="100"/>
+
+        <Button Grid.Row="1" Content="Execute Custom Query" Click="ExecuteCustomQuery_Click"
+                Margin="10" HorizontalAlignment="Right"
+                Style="{DynamicResource MaterialDesignRaisedButton}" />
+
+        <ListBox x:Name="ResultsListBox" Grid.Row="5" Margin="10"
+                 ScrollViewer.VerticalScrollBarVisibility="Auto"/>
     </Grid>
 </Window>
